@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { IProduct } from './product.model';
 
 @Entity()
 export class sellerEntity {
@@ -23,10 +24,4 @@ export class sellerEntity {
 
     @Column()
     product: Array<IProduct>;
-}
-
-interface IProduct {
-    id: string,
-    qty: number,
-    totalprice: number
 }

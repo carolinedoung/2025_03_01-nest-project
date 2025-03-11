@@ -13,8 +13,14 @@ export class ProductModel {
     }
 }
 
+export interface IProduct {
+    id: string,
+    qty: number,
+    price: number
+}
+
 @Entity()
-export class productEntity {
+export class productEntity implements IProduct {
     
     @PrimaryGeneratedColumn()
     id: string;
