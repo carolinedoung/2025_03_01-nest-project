@@ -43,8 +43,8 @@
 
 {
     "userId": "aqzshuj",
-    "creationDate": 2025-12-03,
     "invoiceId": "qazsedrftgyhu",
+    "creationDate": 2025-12-03,
     "price": 182.28,
     "status": "waiting",
     "products": [
