@@ -16,7 +16,7 @@ export class userEntity {
     adresse: string;
 
     @Column()
-    phone: string;
+    phone?: string;
 
     @Column()
     birthDate: Date;

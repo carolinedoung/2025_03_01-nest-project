@@ -33,3 +33,22 @@ Swagger ( documentation d'une API )
 
 
 ===== Partage des types NEST JS =====
+
+
+
+===== Docker MongoDB ===== 
+Si vous souhaitez passer par un docker-compose :
+
+Créer un fichier docker-compose.yaml à la racine de votre repo.
+Ajouter le contenu suivant dans le fichier https://raw.githubusercontent.com/leo29plns/nestjs-backend/refs/heads/main/docker-compose.yaml
+Créez un fichier .env.dev à la racine du repo, avec par exemple :
+```
+DB_USERNAME=root
+DB_PASSWORD=hackmepassword
+```
+
+Lancer la commande docker compose up dans le dossier de votre repo.
+
+MongoDB sera lancé sur le port 27017 , et vous pouvez accéder à une interface d'administration web http://127.0.0.1:8081/
+
+Pour se connecter depuis mongoose, il faudra rajouter ce param dans l'url : ?authSource=admin
