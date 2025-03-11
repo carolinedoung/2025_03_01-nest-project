@@ -1,22 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column } from 'typeorm';
+import { userEntity } from './user.model';
 
 @Entity()
-export class sellerEntity {
+export class sellerEntity extends userEntity {
     
-    @PrimaryGeneratedColumn()
-    id: string;
-
     @Column()
     companyName: string;
-
-    @Column()
-    email: string;
-
-    @Column()
-    adresse: string;
-
-    @Column()
-    phone: string;
 
     @Column()
     contactName: string;
