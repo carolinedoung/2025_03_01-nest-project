@@ -50,12 +50,13 @@ DB_PASSWORD=hackmepassword
 
 ===== Lancement =====
 
-Pour lancer nest JS faites un pnpm run start:dev et rendez-vous à l'url suivant :
-http://localhost:3000 
-
 Lancer la commande docker compose up dans le dossier de votre repo.
 `docker compose --env-file=".env" up`
 
 MongoDB sera lancé sur le port 27017 , et vous pouvez accéder à une interface d'administration web http://127.0.0.1:8081/
+
+Pour lancer nest JS faites un `pnpm run start:dev` 
+et rendez-vous à l'url suivant :
+http://localhost:3000 
 
 Pour se connecter depuis mongoose, il faudra rajouter ce param dans l'url : ?authSource=admin
