@@ -5,11 +5,13 @@ import { ProductController } from './controllers/product.controller';
 import ProductService from './services/product.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Product, ProductSchema } from './schemas/product.schema';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     MongooseModule.forRoot(
-      'mongodb://root:hackmepassword@localhost:27017/amazon_db?authSource=admin',
+      `mongodb://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}?authSource=admin`,
     ),
     MongooseModule.forFeature([{ name: Product.name, schema: ProductSchema }]),
   ],
