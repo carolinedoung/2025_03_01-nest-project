@@ -1,20 +1,15 @@
-import { Body, Controller, Get, HttpCode, Put } from '@nestjs/common';
-import { AppService } from '../services/app.service';
+import { Body, Controller, HttpCode, Put } from '@nestjs/common';
 import { IProductDTO } from 'src/dto/product.dto';
 import ProductService from 'src/services/product.service';
+import { Product } from 'src/schemas/product.schema';
 
 @Controller('/products')
 export class ProductController {
-    constructor(
-        private readonly appService: AppService,
-        private readonly productService: ProductService
-    ) { }
+  constructor(private readonly productService: ProductService) {}
 
-    @Put()
-    @HttpCode(201)
-    createProduct(
-        @Body() requestProduct: IProductDTO
-    ): IProductDTO {
-        return this.productService.createProduct(requestProduct);
-    }
+  @Put()
+  @HttpCode(201)
+  async createProduct(@Body() requestProduct: IProductDTO): Promise<Product> {
+    return this.productService.createProduct(requestProduct);
+  }
 }

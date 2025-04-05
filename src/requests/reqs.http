@@ -7,8 +7,9 @@ Content-Type: application/json; charset=utf-8
 
 
 {
-    "name": "test",
+    "name": "Test Product",
     "price": 15.99,
-    "category": 2,
+    "categoryId": 2,
+    "description": "A sample product",
     "salut": "ok"
 }
