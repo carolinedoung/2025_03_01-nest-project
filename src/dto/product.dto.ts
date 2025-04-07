@@ -1,7 +1,11 @@
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
-import { Type } from 'class-transformer';
 
 export class ProductDTO {
+  @IsString()
+  @IsNotEmpty()
+  @IsOptional()
+  _id: string;
+
   @IsString()
   @IsNotEmpty()
   @IsOptional()
@@ -38,14 +42,4 @@ export class updateProductDataDTO {
   @IsNotEmpty()
   @IsOptional()
   description?: string;
-}
-
-export class updateProductDTO {
-  @IsString()
-  @IsNotEmpty()
-  id: string;
-
-  @IsNotEmpty()
-  @Type(() => updateProductDataDTO)
-  data: updateProductDataDTO;
 }

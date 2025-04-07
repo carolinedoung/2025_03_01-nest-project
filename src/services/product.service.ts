@@ -4,8 +4,9 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+// import { plainToInstance } from 'class-transformer';
 import { Error, Model } from 'mongoose';
-import { ProductDTO, updateProductDTO } from 'src/dto/product.dto';
+import { ProductDTO, updateProductDataDTO } from 'src/dto/product.dto';
 import { IProduct } from 'src/models/product.model';
 import { Product } from 'src/schemas/product.schema';
 
@@ -45,18 +46,64 @@ export default class ProductService {
     }
   }
 
-  async updateProduct(dataProduct: updateProductDTO): Promise<Product> {
+  async updateProduct(
+    id: IProduct['id'],
+    dataProduct: updateProductDataDTO,
+  ): Promise<Product> {
     try {
-      await this.productModel.findByIdAndUpdate(
-        dataProduct.id,
-        dataProduct.data,
-      );
+      // // ===== Tech 3 =====
+      // const instanceUpdateData = plainToInstance(
+      //   updateProductDataDTO,
+      //   dataProduct,
+      //   {
+      //     excludeExtraneousValues: true,
+      //   },
+      // );
+
+      // // ===== Tech 1 =====
+      // const instanceUpdateData: updateProductDataDTO = {
+      //   ...dataProduct,
+      //   category: undefined,
+      // };
+
+      // ===== Tech 2 ===== ( mieux point de vue sécurité car on ne garde que les champs nécessaire)
+      const instanceUpdateData: updateProductDataDTO = Object.entries(
+        dataProduct,
+      )
+        .filter(([k]: Array<string>) =>
+          ['name', 'description'].includes(k.trim().toLowerCase()),
+        )
+        .reduce(
+          (acc, [k, v]: Array<string>) => ({ ...acc, [k]: v }),
+          {} as ProductDTO,
+        );
+
+      await this.productModel.findByIdAndUpdate(id, instanceUpdateData);
       const updatedProduct = await this.productModel.findOne({
-        _id: dataProduct.id,
+        _id: id,
       });
       return updatedProduct;
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async getProduct(id: IProduct['id']): Promise<Product> {
+    const product = await this.productModel.findById(id);
+
+    if (!product) {
+      throw new NotFoundException();
+    }
+
+    return product;
+  }
+
+  async getProducts(): Promise<Array<Product>> {
+    const product = await this.productModel.find();
+    // const product = await this.productModel.find({}, { price: 0 });
+    // const product = await this.productModel.find({}).select('name price');
+    // const product = await this.productModel.find({}, 'name price');
+
+    return product;
   }
 }

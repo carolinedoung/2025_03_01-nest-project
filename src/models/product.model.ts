@@ -42,3 +42,5 @@ export class productEntity implements IProduct {
   @Column()
   minimumAge: number;
 }
+
+// ICI refaire une couche model donc refaire les update / get / etc afin de pouvoir gérer de la logique supplémentaire
