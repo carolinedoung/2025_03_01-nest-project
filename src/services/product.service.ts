@@ -17,4 +17,8 @@ export default class ProductService {
     });
     return newProduct.save();
   }
+
+  async deleteProduct(idProduct: string): Promise<Product> {
+    return this.productModel.findByIdAndDelete(idProduct);
+  }
 }
