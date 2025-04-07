@@ -16,7 +16,7 @@ export class ProductController {
 
   @Delete()
   @HttpCode(200)
-  async deleteProduct(@Body('id') idProduct: string): Promise<Product> {
+  async deleteProduct(@Body('id') idProduct: IProduct['id']): Promise<Product> {
     return this.productService.deleteProduct(idProduct);
   }
 }
