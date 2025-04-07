@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Error, Model } from 'mongoose';
-import { ProductDTO } from 'src/dto/product.dto';
+import { ProductDTO, updateProductDTO } from 'src/dto/product.dto';
 import { IProduct } from 'src/models/product.model';
 import { Product } from 'src/schemas/product.schema';
 
@@ -42,6 +42,21 @@ export default class ProductService {
         throw new BadRequestException('Invalid ID format');
       }
       throw error; // Re-throw other unexpected errors
+    }
+  }
+
+  async updateProduct(dataProduct: updateProductDTO): Promise<Product> {
+    try {
+      await this.productModel.findByIdAndUpdate(
+        dataProduct.id,
+        dataProduct.data,
+      );
+      const updatedProduct = await this.productModel.findOne({
+        _id: dataProduct.id,
+      });
+      return updatedProduct;
+    } catch (error) {
+      console.log(error);
     }
   }
 }
